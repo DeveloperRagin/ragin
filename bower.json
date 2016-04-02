@@ -1,0 +1,36 @@
+{
+  "name": "ragin",
+  "version": "0.1.0",
+  "description": "The Developer 'RAGIN'",
+  "main": "index.js",
+  "authors": [
+    "Glenn Vandeuren"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "ragin",
+    "ragin-ui",
+    "developer-tools",
+    "developer-ui",
+    "developer-helpers",
+    "developer-ragin",
+    "developer-ragin-ui"
+  ],
+  "homepage": "https://github.com/DeveloperRagin/ragin",
+  "moduleType": [
+    "es6",
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "webcomponentsjs": "^0.7.21",
+    "polymer": "Polymer/polymer#^1.4.0",
+    "ragin-ui": "DeveloperRagin/ragin-ui"
+  }
+}
