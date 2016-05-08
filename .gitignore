@@ -5,6 +5,11 @@ node_modules
 bower_components
 
 #############
+## App
+#############
+.tmp
+
+#############
 ## Windows detritus
 #############
 
