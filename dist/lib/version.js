@@ -13,7 +13,7 @@ var runOptions = function runOptions(version, opts) {
 module.exports = {
   get: function get() {
     if (GLOBAL.RAGIN && GLOBAL.RAGIN.MODULES_PATH) {
-      return JSON.parse(fs.readFileSync(GLOBAL.RAGIN.MODULES_PATH + 'developer-ragin-ui/bower.json')).version;
+      return JSON.parse(fs.readFileSync(GLOBAL.RAGIN.MODULES_PATH + '/ragin/bower.json')).version;
     }
   },
   set: function set(version, input) {

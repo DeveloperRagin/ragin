@@ -8,9 +8,12 @@ module.exports = {
     log(_version.get(), 'green');
   },
   started: function started(task) {
-    log('started ' + task, 'blue');
+    log('starting ' + task, 'blue');
   },
   finished: function finished(task) {
     log('finished ' + task, 'green');
+  },
+  warning: function warning(text, task) {
+    log('task::' + task + ': ' + text, 'yellow');
   }
 };

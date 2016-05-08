@@ -1,32 +1,32 @@
 'use strict';
 
-var raginTasks = require('./../ragin-tasks');
 var $ = require('require-dir')('./');
+var afterInstall = require('./after-install');
 
-module.exports = function (opts) {
+module.exports = function (opts, cb) {
   $.options.set(opts);
-  $.read('.ragin', function (err, files) {
+  $.read('.ragin', function (err) {
     if (err) {
       $.log.started('clone');
-      return $.clone(function (err, succes) {
+      $.clone(function (err, succes) {
+        if (err) {
+          $.log.warning(err, 'clone');
+        }
         if (succes) {
           $.log.finished('clone');
-          $.log.started('build');
-          $.build();
-          $.log.finished('build');
-          $.log.started('copy');
-          $.copy();
-          $.log.finished('copy');
+          $.log.started('install');
+          $.install(function () {
+            $.log.finished('install');
+            afterInstall(function () {
+              return cb();
+            });
+          });
         }
-      }.bind(this));
+      });
     } else {
-      $.log.started('build');
-      $.build();
-      $.log.finished('build');
-      $.log.started('copy');
-      $.copy();
-      $.log.finished('copy');
-      $.log.version();
+      afterInstall(function () {
+        return cb();
+      });
     }
   });
 };
