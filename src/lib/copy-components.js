@@ -1,30 +1,45 @@
 'use strict';
 var gulp = require('gulp');
-var fs = require('fs');
 var checkPlugin = require('./check-plugin');
 var checkDependencies = require('./check-dependencies');
 var pluginTasks = require('./plugin-tasks');
-var replace = require('gulp-replace');
 
-module.exports = (path, plugins, override) => {
+var copyToDest = (plugin, cb) => {
+  gulp.src([plugin.__path__])
+    // .pipe(replace(dest, 'src'))
+    .pipe(gulp.dest(`${GLOBAL.RAGIN.COMPONENTS_DEST}/${plugin.name}`));
+
+  return cb();
+};
+
+var dependencyTasks = (plugin, cb) => {
+  checkPlugin(plugin.name);
+  checkDependencies({plugin: plugin}, _plugin => {
+    pluginTasks(_plugin);
+    copyToDest(plugin, () => {
+      return cb();
+    });
+  });
+};
+module.exports = (path, plugins, override, cb) => {
   var _path = path;
   for (var i = 0; i < plugins.length; i++) {
-    var dest = '.ragin/bower_components/' + plugins[i] + '/';
     var plugin = {
-      'name': plugins[i],
-      '__path__': _path + '/' + plugins[i] + '/' + plugins[i] + '.html',
-      '__componentsPath__': _path
+      name: plugins[i],
+      __path__: _path + '/' + plugins[i] + '/' + plugins[i] + '.html',
+      __componentsPath__: _path
     };
     // temporary over rule check plugin
-    if (!override) {
-      checkPlugin(plugins[i]);
-      checkDependencies(plugins[i]);
-      pluginTasks(plugin);
+    if (override) {
+      var pp = plugin.__path__.replace(plugins[i] + '.html', '*.{html,js}');
+      plugin.__path__ = pp;
+      copyToDest(plugin, () => {
+        return cb();
+      });
     } else {
-      plugin.__path__ = plugin.__path__.replace(plugins[i] + '.html', '*.{html,js}');
+      dependencyTasks(plugin, () => {
+        return cb();
+      });
     }
-    gulp.src([plugin.__path__])
-      .pipe(replace(dest, 'app'))
-      .pipe(gulp.dest(dest));
   }
 };
