@@ -2,6 +2,9 @@
 var gulp = require('gulp');
 var del = require('del');
 
-gulp.task('clean', function() {
-  return del(GLOBAL.config.dest);
+gulp.task('clean', cb => {
+  del(GLOBAL.config.dest)
+  .then(() => {
+    cb();
+  });
 });

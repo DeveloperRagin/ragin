@@ -26,4 +26,4 @@ gulp.task('ES6:transpile', () => {
 // });
 
 // Transpile all JS to ES6.
-gulp.task('ES6', ['ES6:transpile']);
+gulp.task('ES6', gulp.series('ES6:transpile'));
