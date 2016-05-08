@@ -6,10 +6,10 @@ require('require-dir')('gulp-tasks');
 GLOBAL.config = GLOBAL.config || {};
 
 // build distribution
-gulp.task('default', ['dist', 'clean', 'ES6']);
+gulp.task('default', gulp.series('dist', 'clean', 'ES6'));
 
-// serve development file & start raginUi
-gulp.task('serve', ['dev', 'ES6', 'run', 'copy']);
+// serve development files & start ragin
+gulp.task('serve', gulp.series('dev', 'ES6', 'copy', 'run'));
 
 // run tests
-gulp.task('test', ['run:tests']);
+gulp.task('test', gulp.series('run:tests'));
