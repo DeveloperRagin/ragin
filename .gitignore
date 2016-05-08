@@ -11,6 +11,11 @@ bower_components
 dist
 
 #############
+## Ragin build
+#############
+.ragin
+
+#############
 ## Windows detritus
 #############
 
