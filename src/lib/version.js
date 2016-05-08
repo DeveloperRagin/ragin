@@ -10,7 +10,7 @@ var runOptions = (version, opts) => {
 module.exports = {
   get: function() {
     if (GLOBAL.RAGIN && GLOBAL.RAGIN.MODULES_PATH) {
-      return JSON.parse(fs.readFileSync(GLOBAL.RAGIN.MODULES_PATH + 'ragin/bower.json')).version;
+      return JSON.parse(fs.readFileSync(GLOBAL.RAGIN.MODULES_PATH + '/ragin/bower.json')).version;
     }
   },
   set: function(version, input) {

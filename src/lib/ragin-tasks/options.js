@@ -9,17 +9,17 @@ var defaultPlugins = () => {
 var set = function(opts) {
   opts = opts || {};
   GLOBAL.RAGIN = GLOBAL.RAGIN || {};
-  GLOBAL.RAGIN.MODULES_PATH = opts.modulesPath ? opts.modulesPath : config.modulesPath;
-  GLOBAL.RAGIN.DEST = opts.dest ? opts.dest : config.dest;
-  GLOBAL.RAGIN.COMPONENTS_PATH = opts.componentsPath ? opts.componentsPath : config.componentsPath;
-  GLOBAL.RAGIN.COMPONENTS_DEST = opts.componentsDest ? opts.componentsDest : config.componentsDest;
+  GLOBAL.RAGIN.MODULES_PATH = opts.modulesPath || config.modulesPath;
+  GLOBAL.RAGIN.DEST = opts.dest || config.dest;
+  GLOBAL.RAGIN.COMPONENTS_PATH = opts.componentsPath || config.componentsPath;
+  GLOBAL.RAGIN.COMPONENTS_DEST = opts.componentsDest || config.componentsDest;
   GLOBAL.RAGIN.version = version.get();
-  GLOBAL.RAGIN.port = opts.port ? opts.port : 9000;
-  GLOBAL.RAGIN.plugins = opts.plugins ? opts.plugins : defaultPlugins();
+  GLOBAL.RAGIN.port = opts.port || 9000;
+  GLOBAL.RAGIN.plugins = opts.plugins || defaultPlugins();
   GLOBAL.RAGIN.ui = {
-    'port' : opts.port ? opts.port + 1 : 9001
+    port: opts.port ? opts.port + 1 : 9001
   };
-  GLOBAL.RAGIN.server = opts.server ? opts.server : '.ragin';
+  GLOBAL.RAGIN.server = opts.server || '.ragin';
   return GLOBAL.RAGIN;
 };
 
