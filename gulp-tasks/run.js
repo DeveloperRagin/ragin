@@ -1,10 +1,10 @@
 var gulp = require('gulp');
-var raginUi = require('./../src/lib/ragin');
+var Ragin = require('./../src/lib/ragin');
 
 gulp.task('run', () => {
-  return new raginUi();
+  return new Ragin({componentsPath: 'bower_components'});
 });
 
 gulp.task('run:tests', () => {
-  return ragin({'baseDir': ['test']});
+  return new Ragin({baseDir: ['test']});
 });
