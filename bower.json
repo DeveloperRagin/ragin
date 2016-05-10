@@ -28,9 +28,10 @@
     "test",
     "tests"
   ],
-  "dependencies": {
+  "devDependencies": {
     "webcomponentsjs": "^0.7.21",
     "polymer": "Polymer/polymer#^1.4.0",
-    "ragin-ui": "DeveloperRagin/ragin-ui"
+    "ragin-app": "DeveloperRagin/ragin-app",
+    "ragin-todo": "^1.0.1"
   }
 }
