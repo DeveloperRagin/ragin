@@ -16,6 +16,7 @@ var set = function(opts) {
   GLOBAL.RAGIN.version = version.get();
   GLOBAL.RAGIN.port = opts.port || 9000;
   GLOBAL.RAGIN.plugins = opts.plugins || defaultPlugins();
+  GLOBAL.RAGIN.tags = opts.injectTags || require('./../inject-tags');
   GLOBAL.RAGIN.ui = {
     port: opts.port ? opts.port + 1 : 9001
   };

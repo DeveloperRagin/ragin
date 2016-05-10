@@ -10,14 +10,15 @@ var copy = require('./copy');
 module.exports = cb => {
   // run the build task
   log.started('build');
-  build();
-  log.finished('build');
-  // run the 'copy' task
-  log.started('copy');
-  copy(() => {
-    log.finished('copy');
-    // current version
-    log.version();
-    return cb();
+  build().then(() => {
+    log.finished('build');
+    // run the 'copy' task
+    log.started('copy');
+    copy(() => {
+      log.finished('copy');
+      // current version
+      log.version();
+      return cb();
+    });
   });
 };
