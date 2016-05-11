@@ -7,11 +7,7 @@ var _if = require('gulp-if');
 var del = require('del');
 
 gulp.task('ES6:transpile', () => {
-  return gulp.src([
-    'index.js',
-    'src/**/*.{html,js}',
-    '!src/bower_components/**/*'
-   ])
+  return gulp.src(['src/**/*.{html,js}'])
    .pipe(_if(GLOBAL.config.env === 'dev', sourcemaps.init()))
    .pipe(_if('*.html', crisper({scriptInHead: false}))) // Extract JS from .html files
    .pipe(_if('*.js', babel({
@@ -20,10 +16,6 @@ gulp.task('ES6:transpile', () => {
    .pipe(_if(GLOBAL.config.env === 'dev', sourcemaps.write('.')))
    .pipe(gulp.dest(GLOBAL.config.dest));
 });
-
-// gulp.task('ES6:clean', () => {
-//   return del('dist/*.js.map', {dot: true});
-// });
 
 // Transpile all JS to ES6.
 gulp.task('ES6', gulp.series('ES6:transpile'));
