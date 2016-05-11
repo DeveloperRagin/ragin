@@ -3,16 +3,33 @@ var fs = require('fs');
 var tags = require('./../inject-tags');
 var github = require('./../github');
 
+var _replace = (arr, index) => {
+  return new Promise(function(resolve, reject) {
+    if (!index) {
+      reject();
+    }
+    var replacement;
+    var calls = 0;
+    arr.forEach(i => {
+      calls += 1;
+      replacement = `app.${i} = ${JSON.stringify(GLOBAL.RAGIN[i])}`;
+      index = index.replace(tags[i], replacement);
+      if (arr.length === calls) {
+        return resolve(index);
+      }
+    });
+  });
+};
+
 var defaultTasks = index => {
   return new Promise(function(resolve, reject) {
     if (!index) {
       reject();
     }
-    // inject plugins
-    index = index.replace(tags.plugins, JSON.stringify(GLOBAL.RAGIN.plugins));
-    // inject version
-    index = index.replace(tags.version, JSON.stringify(GLOBAL.RAGIN.version));
-    return resolve(index);
+    // inject plugins & version
+    _replace(['plugins', 'version'], index).then(index => {
+      return resolve(index);
+    });
   });
 };
 
@@ -25,7 +42,8 @@ var githubUser = index => {
       reject();
     }
     github.user.then(user => {
-      index = index.replace(/@github/g, JSON.stringify(user));
+      var replacement = `app.github = ${JSON.stringify(user)}`;
+      index = index.replace(tags.github, replacement);
       resolve(index);
     });
   });
